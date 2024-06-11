@@ -1,0 +1,53 @@
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+
+  const [names, setNames] = useState([]);
+  console.log(name);
+  const handleDelete = (indexval) => {
+    setNames(names.filter((name, index) => index !== indexval));
+  };
+  return (
+    <>
+      <label>
+        Enter a text
+        <input
+          type="text"
+          value={name}
+          className="text-Box"
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
+      <button
+        className="submit-Button"
+        onClick={() => {
+          setNames([...names, name]);
+          setName("");
+        }}
+      >
+        Submit
+      </button>
+      <ul>
+        {names.map((val, index) => {
+          return (
+            <li>
+              <button
+                onClick={() => {
+                  handleDelete(val);
+                }}
+              >
+                Delete
+              </button>
+              {index}:{val}
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
+}
+
+export default App;
