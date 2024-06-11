@@ -3,27 +3,14 @@ import Content from "./Content";
 import Footer from "./Footer";
 import React, { useState } from "react";
 import AddInputItems from "./AddInputItems";
+import SearchItems from "./SearchItem";
 
 export default function App() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      checked: true,
-      list: "Gather the project requirment",
-    },
-    {
-      id: 2,
-      checked: false,
-      list: "Work on task",
-    },
-    {
-      id: 3,
-      checked: false,
-      list: "code push",
-    },
-  ]);
+  const [items, setItems] = useState(
+    JSON.parse(localStorage.getItem("todo-list"))
+  );
   const [newItem, setNewItem] = useState(""); //AddInput items
-
+  const [searchItem, setSearchItem] = useState(""); //SearchItem
   const addItem = (item) => {
     // to find the id by using items[items.length-1].id  it will hold last element id
     const id = items.length ? items[items.length - 1].id + 1 : 1;
@@ -63,8 +50,11 @@ export default function App() {
         setNewItem={setNewItem}
         handleSubmit={handleSubmits}
       />
+      <SearchItems searchItem={searchItem} setSearchItem={setSearchItem} />
       <Content
-        items={items}
+        items={items.filter((item) =>
+          item.list.toLowerCase().includes(searchItem.toLowerCase())
+        )}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
       />
