@@ -2,33 +2,38 @@ import logo from "./logo.svg";
 import "./App.css";
 import React, { useState } from "react";
 
-export default function App() {
-  const [show, setShow] = useState(true);
-  const handleButton = () => {
-    // if (hide) {
-    //   setHide(false);
-    // } else {
-    //   setHide(true);
-    // }
-    show ? setShow(false) : setShow(true);
-    // (show && setShow(false)) || setShow(true);
+const App = () => {
+  const [btn, setBtn] = useState(true);
+  const [count, setCount] = useState(0);
+  const [time, setTime] = useState("");
+
+  const handleClick = () => {
+    if (btn) {
+      setBtn(false);
+      let temp = setInterval(() => {
+        setCount((prev) => prev + 1);
+      }, 1000);
+      setTime(temp);
+    } else {
+      console.log("interval");
+      debugger;
+      setBtn(true);
+      clearInterval(time);
+    }
+    // btn === "start" ? setBtn("stop") : setBtn("start");
   };
 
   return (
     <>
-      <div>
-        {/* {hide ? <p>Hello World</p> : null} */}
-        <p className={show ? "show" : "hide"}>Hello World</p>
-        <button className="clickButton" onClick={handleButton}>
-          Click Me
-        </button>
-        {/* <button className="hideButton" onClick={() => setHide(false)}>
-          Hide
-        </button>
-        <button className="showButton" onClick={() => setHide(true)}>
-          Show
-        </button> */}
-      </div>
+      {
+        <div>
+          <p>{count}</p>
+          <button className="button" onClick={handleClick}>
+            {btn ? "start" : "stop"}
+          </button>
+        </div>
+      }
     </>
   );
-}
+};
+export default App;
