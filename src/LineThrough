@@ -1,0 +1,44 @@
+import { useState } from "react";
+export default function App() {
+  const [change, setChange] = useState("");
+  const [list, setList] = useState([]);
+  // const [decor, setDecor] = useState([]);
+  const [decor, setDecor] = useState([]);
+
+  console.log(change);
+  const handelSubmit = () => {
+    setList([...list, change]);
+  };
+  const handleStrikethrough = (index) => {
+    const strikethrough = list.map((val, ind) => {
+      debugger;
+      return ind === index;
+      // return ind === index ? setDecor(true) : setDecor(false);
+    });
+    // setDecor(strikethrough);
+  };
+
+  console.log(list);
+  return (
+    <div className="App">
+      <input
+        type="text"
+        placeholder="additemlist"
+        onChange={(e) => setChange(e.target.value)}
+      />
+      <button onClick={handelSubmit}>submitt</button>
+
+      <ul>
+        {list.map((val, index) => (
+          <li
+            key={index}
+            onClick={handleStrikethrough}
+            style={{ textDecoration: decor ? "line-through" : "none" }}
+          >
+            {val}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
