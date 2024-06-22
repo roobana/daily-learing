@@ -16,7 +16,7 @@ const App = () => {
       setTime(temp);
     } else {
       console.log("interval");
-      debugger;
+      // debugger;
       setBtn(true);
       clearInterval(time);
     }
